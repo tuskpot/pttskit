@@ -8,6 +8,16 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+# Set some default values.
+out_dir="../out"
+
+# Collect some parameters.
+while getopts 'o:' flag; do
+  case "${flag}" in
+    o) out_dir="${OPTARG}";;
+  esac
+done
+
 # Get input file.
 file="${!OPTIND}"
 dir=$(dirname "${file}")
@@ -16,6 +26,6 @@ echo "${file}"
 # Make a card for each line in the CSV.
 while IFS=, read -r -a line; do
   if [ ${line[4]} == 'art' ]; then
-    ./make-card.sh -n "${line[0]}" -t "${line[1]}" "${dir}/${line[3]}"
+    ./make-card.sh -n "${line[0]}" -t "${line[1]}" -o "${out_dir}" "${dir}/${line[3]}"
   fi
 done < "${file}"

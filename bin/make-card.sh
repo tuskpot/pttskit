@@ -9,18 +9,20 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # Set some default values.
+out_dir="../out"
 file_mode="none"
 card_num="0000"
 card_title="Untitled"
 card_body_text=""
 
 # Collect some parameters.
-while getopts 'm:n:t:' flag; do
+while getopts 'b:m:n:o:t:' flag; do
   case "${flag}" in
     m) file_mode="${OPTARG}";;
     n) card_num="${OPTARG}";;
     t) card_title="${OPTARG}";;
     b) card_body_text="${OPTARG}";;
+    o) out_dir="${OPTARG}";;
   esac
 done
 
@@ -29,7 +31,6 @@ img="${!OPTIND}"
 
 # Set the output file name.
 out_title=$(echo "${card_title}" | tr -c "a-zA-Z\r\n" "-" | tr "A-Z" "a-z")
-out_dir="../out"
 mkdir -p "${out_dir}"
 img_out="${out_dir}/${card_num}_${out_title}.jpg"
 

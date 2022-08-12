@@ -9,6 +9,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # Set some default values.
+bg="#f7eec3"
 cardw=418
 cardh=585
 cols=10
@@ -25,16 +26,30 @@ while getopts 'c:o:r:' flag; do
 done
 shift $((OPTIND-1))
 
+# Set the maximum number of images.
+max_img=$(((cols * rows) - 1))
+
 # Get the art filenames.
-imgs="$@"
+imgs="${@}"
+
+# Insert placeholder images for every 70th card.
+# Oh, despite the documentation, this isn't necessary.
+#imgs=( )
+#while [ ${#} -ge ${max_img} ]; do
+  #imgs=("${imgs[@]}" "${@:1:max_img}" "null:")
+  #shift "${max_img}"
+#done
+#imgs=("${imgs[@]}" "${@}")
 
 # Combine inputs into a single output file.
 IFS=$' '
 montage \
  ${imgs} \
+ -background "${bg}" \
  -geometry "${cardw}x${cardh}" \
  -tile "${cols}x${rows}" \
  "${img_out}"
 
 # Ensure final output is 4096px high, as recommended by TTS documentation.
-mogrify -gravity North -extent x4096 "${img_out}"
+# (How best to handle multiple output files?)
+#mogrify -gravity North -extent x4096 "${img_out}"
