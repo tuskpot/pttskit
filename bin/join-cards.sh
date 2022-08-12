@@ -17,11 +17,13 @@ rows=7
 img_out="../out/out.jpg"
 
 # Collect some parameters.
-while getopts 'c:o:r:' flag; do
+while getopts 'c:h:o:r:w:' flag; do
   case "${flag}" in
     c) cols="${OPTARG}";;
     o) img_out="${OPTARG}";;
     r) rows="${OPTARG}";;
+    w) cardw="${OPTARG}";;
+    h) cardh="${OPTARG}";;
   esac
 done
 shift $((OPTIND-1))
