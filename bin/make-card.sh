@@ -48,6 +48,13 @@ w=418
 h=585
 r=167
 
+# Define the text box dimensions.
+textw=600
+texth=600
+
+# Revert some substitutions in the body text.
+card_clean_text=$(echo "${card_body_text}" | tr ";~" ",\n" | sed -E "s/(.{30,45}) /\1\n/g")
+
 # Define font information.
 font="Helvetica"
 upper_title=$(echo "${card_title}" | tr "a-z" "A-Z")
@@ -69,5 +76,7 @@ convert "${img}" \
  -pointsize 24 \
  -font "${font}" \
  -annotate +80+40 "${upper_title}" \
+ -pointsize 18 \
+ -annotate +40+80 "${card_clean_text}" \
  "${img_out}"
 

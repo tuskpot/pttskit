@@ -25,7 +25,7 @@ echo "${file}"
 
 # Make a card for each line in the CSV.
 while IFS=, read -r -a line; do
-  if [ ${line[4]} == 'art' ]; then
-    ./make-card.sh -n "${line[0]}" -t "${line[1]}" -o "${out_dir}" "${dir}/${line[3]}"
+  if [ "${line[5]}" == 'art' ]; then
+    ./make-card.sh -n "${line[0]}" -t "${line[1]}" -b "${line[2]}" -o "${out_dir}" "${dir}/${line[4]}"
   fi
 done < "${file}"
