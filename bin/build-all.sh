@@ -27,5 +27,7 @@ echo "${file}"
 while IFS=, read -r -a line; do
   if [ "${line[5]}" == 'art' ]; then
     ./make-card.sh -n "${line[0]}" -t "${line[1]}" -b "${line[2]}" -o "${out_dir}" "${dir}/${line[4]}"
+  else
+    echo "${line[5]}"
   fi
 done < "${file}"
