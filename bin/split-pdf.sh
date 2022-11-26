@@ -24,7 +24,7 @@ done
 # Get the pdf filename.
 pdf="${!OPTIND}"
 
-# Combine inputs into a single output file.
+# Extract individual pages into separate files.
 IFS=$' '
 convert \
  -density "${density}" \
