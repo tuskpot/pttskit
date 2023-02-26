@@ -29,5 +29,6 @@ IFS=$' '
 convert \
  -density "${density}" \
  "${pdf}" \
- -geometry "${cardw}x${cardh}" \
  "${img_out}"
+
+# -geometry "${cardw}x${cardh}" \
